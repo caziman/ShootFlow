@@ -23,45 +23,35 @@ export default function BookPage() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault()
-    setMessage('Submitting...')
+    setMessage('Saving booking...')
 
     const { error } = await supabase.from('bookings').insert([form])
 
     if (error) {
       setMessage('Something went wrong. Please try again.')
+      return
+    }
+
+    await fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form),
+    })
+
+    setMessage('Redirecting to secure payment...')
+
+    const checkoutRes = await fetch('/api/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form),
+    })
+
+    const checkoutData = await checkoutRes.json()
+
+    if (checkoutData.url) {
+      window.location.href = checkoutData.url
     } else {
-      await fetch('/api/send-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      })
-
-      setMessage('Redirecting to secure payment...')
-
-const checkoutRes = await fetch('/api/checkout', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(form),
-})
-
-const checkoutData = await checkoutRes.json()
-
-if (checkoutData.url) {
-  window.location.href = checkoutData.url
-} else {
-  setMessage('Booking saved, but payment could not start.')
-}
-
-      setForm({
-        Client_Name: '',
-        Email: '',
-        Phone: '',
-        Shoot_Type: '',
-        Shoot_Date: '',
-        Location: '',
-        Budget: '',
-        Notes: '',
-      })
+      setMessage('Booking saved, but payment could not start.')
     }
   }
 
@@ -90,13 +80,7 @@ if (checkoutData.url) {
             ShootFlow Studio
           </p>
 
-          <h1
-            style={{
-              fontSize: 52,
-              marginBottom: 14,
-              fontWeight: 400,
-            }}
-          >
+          <h1 style={{ fontSize: 52, marginBottom: 14, fontWeight: 400 }}>
             Reserve Your Session
           </h1>
 
@@ -109,8 +93,8 @@ if (checkoutData.url) {
               lineHeight: 1.6,
             }}
           >
-            Share the details of your session and we’ll personally follow up
-            with availability, next steps, and booking details.
+            Share your session details, then complete your secure deposit to
+            reserve your request.
           </p>
         </div>
 
@@ -252,7 +236,7 @@ if (checkoutData.url) {
                 textTransform: 'uppercase',
               }}
             >
-              Submit Booking Request
+              Submit Booking + Pay Deposit
             </button>
           </div>
 
@@ -262,9 +246,9 @@ if (checkoutData.url) {
                 marginTop: 20,
                 textAlign: 'center',
                 color:
-                  message === 'Submitting...'
+                  message.includes('Redirecting') || message.includes('Saving')
                     ? '#c9a96a'
-                    : message.includes('received')
+                    : message.includes('saved')
                     ? '#d8c69b'
                     : '#fca5a5',
               }}
