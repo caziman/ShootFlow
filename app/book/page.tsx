@@ -36,7 +36,21 @@ export default function BookPage() {
         body: JSON.stringify(form),
       })
 
-      setMessage('Your booking request has been received.')
+      setMessage('Redirecting to secure payment...')
+
+const checkoutRes = await fetch('/api/checkout', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(form),
+})
+
+const checkoutData = await checkoutRes.json()
+
+if (checkoutData.url) {
+  window.location.href = checkoutData.url
+} else {
+  setMessage('Booking saved, but payment could not start.')
+}
 
       setForm({
         Client_Name: '',

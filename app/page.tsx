@@ -26,13 +26,7 @@ export default function HomePage() {
           ShootFlow Studio
         </p>
 
-        <h1
-          style={{
-            fontSize: 64,
-            fontWeight: 400,
-            marginBottom: 18,
-          }}
-        >
+        <h1 style={{ fontSize: 64, fontWeight: 400, marginBottom: 18 }}>
           Luxury booking for modern photographers.
         </h1>
 
@@ -45,11 +39,10 @@ export default function HomePage() {
             margin: '0 auto 34px',
           }}
         >
-          Reserve sessions, manage client requests, and streamline your
-          photography workflow with a premium booking experience.
+          Book sessions, manage clients, and elevate your photography workflow.
         </p>
 
-        <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: 14, justifyContent: 'center' }}>
           <a href="/book" style={primaryButton}>
             Book a Session
           </a>
@@ -71,7 +64,6 @@ const primaryButton = {
   color: '#090909',
   fontWeight: 800,
   textDecoration: 'none',
-  letterSpacing: 1,
   textTransform: 'uppercase' as const,
 }
 
@@ -83,6 +75,5 @@ const secondaryButton = {
   color: '#c9a96a',
   fontWeight: 800,
   textDecoration: 'none',
-  letterSpacing: 1,
   textTransform: 'uppercase' as const,
 }
