@@ -1,65 +1,88 @@
-import Image from "next/image";
-
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
+    <main
+      style={{
+        minHeight: '100vh',
+        background:
+          'radial-gradient(circle at top, #2a2118 0%, #0b0b0b 45%, #050505 100%)',
+        color: '#f8f1e7',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 24,
+        fontFamily: 'Georgia, serif',
+      }}
+    >
+      <section style={{ maxWidth: 900, textAlign: 'center' }}>
+        <p
+          style={{
+            color: '#c9a96a',
+            letterSpacing: 5,
+            textTransform: 'uppercase',
+            fontSize: 13,
+            marginBottom: 18,
+          }}
+        >
+          ShootFlow Studio
+        </p>
+
+        <h1
+          style={{
+            fontSize: 64,
+            fontWeight: 400,
+            marginBottom: 18,
+          }}
+        >
+          Luxury booking for modern photographers.
+        </h1>
+
+        <p
+          style={{
+            color: '#b8aa98',
+            fontSize: 20,
+            lineHeight: 1.7,
+            maxWidth: 680,
+            margin: '0 auto 34px',
+          }}
+        >
+          Reserve sessions, manage client requests, and streamline your
+          photography workflow with a premium booking experience.
+        </p>
+
+        <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <a href="/book" style={primaryButton}>
+            Book a Session
           </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
+
+          <a href="/login" style={secondaryButton}>
+            Studio Login
           </a>
         </div>
-      </main>
-    </div>
-  );
+      </section>
+    </main>
+  )
+}
+
+const primaryButton = {
+  padding: '15px 24px',
+  borderRadius: 999,
+  border: '1px solid #c9a96a',
+  background: 'linear-gradient(135deg, #c9a96a, #8b6f3e)',
+  color: '#090909',
+  fontWeight: 800,
+  textDecoration: 'none',
+  letterSpacing: 1,
+  textTransform: 'uppercase' as const,
+}
+
+const secondaryButton = {
+  padding: '15px 24px',
+  borderRadius: 999,
+  border: '1px solid rgba(201, 169, 106, 0.45)',
+  background: 'transparent',
+  color: '#c9a96a',
+  fontWeight: 800,
+  textDecoration: 'none',
+  letterSpacing: 1,
+  textTransform: 'uppercase' as const,
 }
